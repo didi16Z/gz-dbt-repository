@@ -1,0 +1,15 @@
+version: 2
+
+sources:
+  - name: gz_raw_data
+    database: neat-vent-473417-g7
+    schema: gz_raw_data
+    loader: bigquery
+    description: "Raw Greenweez data from BigQuery"
+    tables:
+      - name: raw_gz_sales
+        description: "Contains sales transaction data"
+      - name: raw_gz_product
+        description: "Contains product details"
+      - name: raw_gz_ship
+        description: "Contains shipment and delivery data"
