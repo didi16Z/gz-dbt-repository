@@ -1,4 +1,4 @@
-{{ config(materialized = 'table') }}
+{{ config(materialized=table) }}
 
 with ops as (
   -- one row per order with operational_margin & costs
