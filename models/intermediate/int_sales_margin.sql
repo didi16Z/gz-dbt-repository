@@ -8,7 +8,7 @@ p as (
 )
 
 select
-  s.orders_id,
+  s.orders_id,s.date_date,
   s.products_id,
   s.quantity,
   s.revenue,
