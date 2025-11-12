@@ -6,10 +6,55 @@ sources:
     schema: gz_raw_data
     loader: bigquery
     description: "Raw Greenweez data from BigQuery"
+    freshness:
+      warn_after: {count: 12, period: hour}
     tables:
       - name: raw_gz_sales
-        description: "Contains sales transaction data"
+        description: "Contains sales transactions for Greenweez — each row represents a product sold in an order."
+        loaded_at_field: date_date
+        columns:
+          - name: date_date
+            description: "Date when the purchase occurred"
+          - name: orders_id
+            description: "Unique identifier of each order"
+          - name: pdt_id
+            description: "Product ID for each item in the order"
+          - name: revenue
+            description: "Revenue generated for this order line"
+          - name: quantity
+            description: "Number of units sold for this product in the order"
+          - name: order_product_key
+            description: "Composite primary key created by combining orders_id and product_id"
+            tests:
+              - unique
+              - not_null
+
       - name: raw_gz_product
-        description: "Contains product details"
+        description: "Contains product details and pricing information"
+        columns:
+          - name: products_id
+            description: "Unique identifier of the product"
+            tests:
+              - unique
+              - not_null
+          - name: purchase_price
+            description: "Purchase price of the product (float)"
+          - name: category
+            description: "Product category"
+          - name: product_name
+            description: "Product name or label"
+
       - name: raw_gz_ship
-        description: "Contains shipment and delivery data"
+        description: "Contains shipment and delivery information for orders"
+        columns:
+          - name: orders_id
+            description: "Unique identifier of the shipped order"
+            tests:
+              - unique
+              - not_null
+          - name: shipping_fee
+            description: "Shipping fee applied to the order"
+          - name: ship_cost
+            description: "Actual shipping cost incurred (float)"
+          - name: delivery_date
+            description: "Date when the product was delivered"
