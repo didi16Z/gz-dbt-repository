@@ -25,6 +25,6 @@ select
 from ops
 group by date_date
 order by date_date
- {{ config(materialized='table') }}
-
  
+
+
